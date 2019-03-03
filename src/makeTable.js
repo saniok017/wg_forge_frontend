@@ -1,5 +1,7 @@
+import { template } from 'lodash';
+
 function makeTable() {
-    return '<table>\
+    return (template('<table>\
         <thead>\
             <tr>\
                 <th>Transaction ID</th>\
@@ -11,8 +13,10 @@ function makeTable() {
                 <th>Location</th>\
             </tr>\
         </thead>\
-        <tbody>тут будут данные о заказах...</tbody>\
-    </table>'
+        <tbody>\
+            тут будут данные о заказах...\
+        </tbody>\
+    </table>'))()
 }
 
 export default makeTable;
