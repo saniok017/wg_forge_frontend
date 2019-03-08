@@ -3,6 +3,7 @@ import { template } from 'lodash';
 import data from './reorganizeData';
 
 function makeTable() {
+    console.log(data.users)
   return (template('<table>\
     <thead>\
         <tr>\
@@ -19,7 +20,13 @@ function makeTable() {
     <% orders.forEach(function(order) { %> \
         <tr id="order_<%-order.id%>"> \
             <td><%-order.transaction_id%></td> \
-            <td class="user_data"><%-order.user_id%></td>\
+            <td class="user_data">\
+                <a href="#">\
+                    <%-users[order.user_id].gender === "Male" ? "Mr." : "Ms."%>\
+                    <%-users[order.user_id].first_name%>\
+                    <%-users[order.user_id].last_name%>\
+                </a>\
+            </td>\
             <td><%-order.created_at%></td>\
             <td>$<%-order.total%></td>\
             <td><%-order.card_number%></td>\
@@ -32,3 +39,5 @@ function makeTable() {
 }
 
 export default makeTable;
+
+// <%-users[order.user_id].first_name users[order.user_id].last_name%>\
