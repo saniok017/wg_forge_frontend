@@ -1,19 +1,19 @@
 /* eslint-disable no-multi-str */
+import 'bootstrap';
 import { template } from 'lodash';
 import data from './reorganizeData';
 
 function makeTable() {
-    console.log(data.users)
-  return (template('<table>\
-    <thead>\
+  return (template('<table class="table">\
+    <thead class="thead-dark">\
         <tr>\
-            <th>Transaction ID</th>\
-            <th>User Info</th>\
-            <th>Order Date</th>\
-            <th>Order Amount</th>\
-            <th>Card Number</th>\
-            <th>Card Type</th>\
-            <th>Location</th>\
+            <th scope="col">Transaction ID</th>\
+            <th scope="col">User Info</th>\
+            <th scope="col">Order Date</th>\
+            <th scope="col">Order Amount</th>\
+            <th scope="col">Card Number</th>\
+            <th scope="col">Card Type</th>\
+            <th scope="col">Location</th>\
         </tr>\
     </thead>\
     <tbody>\
@@ -39,5 +39,3 @@ function makeTable() {
 }
 
 export default makeTable;
-
-// <%-users[order.user_id].first_name users[order.user_id].last_name%>\
