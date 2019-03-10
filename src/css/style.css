@@ -3,3 +3,11 @@
 .none {
     display: none;
 }
+
+.thead-dark {
+    cursor: pointer;
+}
+
+.default-cursor {
+    cursor: default;
+}
