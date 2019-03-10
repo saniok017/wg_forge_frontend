@@ -6,6 +6,16 @@ function makeTable(data) {
   return (template('<table class="table table-striped">\
     <thead class="thead-dark" id="tableHead">\
         <tr>\
+            <th colspan="8">\
+                <form class="form-inline">\
+                    <div class="form-group mb-2">\
+                        <input class="form-control mb-2" type="text" placeholder="Search" aria-label="Search" id="search">\
+                        <button class="btn btn-outline-success mb-2" type="submit" id="searchButton">Search</button>\
+                    </div>\
+                </form>\
+            </th>\
+        </tr>\
+        <tr class="headers">\
             <th scope="col">#</th>\
             <th scope="col">Transaction ID<% if(sortedColumn === "Transaction ID") { %><span>&#8595;</span><% }; %></th>\
             <th scope="col">User Info<% if(sortedColumn === "User Info") { %><span>&#8595;</span><% }; %></th>\
@@ -19,8 +29,8 @@ function makeTable(data) {
     <tbody id="tableBody">\
     <% orders.forEach(function(order, index) { %> \
         <tr id="order_<%-order.id%>"> \
-            <th scope="row"><%-index + 1%></th>\
-            <td><%-order.transaction_id%></td> \
+            <th scope="row"><%-index + 1 || "n/a"%></th>\
+            <td><%-order.transaction_id  || "n/a"%></td> \
             <td class="user_data">\
                 <a href="#" class="toggle-link">\
                     <%-order.userData.gender === "Male" ? "Mr." : "Ms."%>\
@@ -43,6 +53,11 @@ function makeTable(data) {
             <td><%-order.order_country%> (<%-order.order_ip%>)<td>\
         </tr>\
     <% }); %> \
+    <% if(!orders.length) { %> \
+        <tr>\
+            <td colspan="8">Nothing found</td>\
+        </tr>\
+    <% }; %> \
         <tr>\
             <th scope="row">Orders Count</td>\
             <td>Average Check</td>\
@@ -51,14 +66,25 @@ function makeTable(data) {
             <td>Orders Total</td>\
             <td>Median Value</td>\
         </tr>\
-        <tr>\
-            <th scope="row"><%-orders.length%></th>\
-            <td>$<%-(statistic.ordersTotal.toFixed(2) / orders.length).toFixed(2)%></td>\
-            <td colspan="2">$<%-statistic.femaleAverage.toFixed(2)%></td>\
-            <td colspan="2">$<%-statistic.maleAverage.toFixed(2)%></td>\
-            <td>$<%-statistic.ordersTotal.toFixed(2)%></td>\
-            <td>$<%-statistic.median%></td>\
-        </tr>\
+        <% if(orders.length) { %> \
+            <tr>\
+                <th scope="row"><%-orders.length%></th>\
+                <td>$<%-(statistic.ordersTotal.toFixed(2) / orders.length).toFixed(2)%></td>\
+                <td colspan="2">$<%-statistic.femaleAverage.toFixed(2)%></td>\
+                <td colspan="2">$<%-statistic.maleAverage.toFixed(2)%></td>\
+                <td>$<%-statistic.ordersTotal.toFixed(2)%></td>\
+                <td>$<%-statistic.median%></td>\
+            </tr>\
+        <% } else { %> \
+            <tr>\
+                <th scope="row">n/a</th>\
+                <td>n/a</td>\
+                <td colspan="2">n/a</td>\
+                <td colspan="2">n/a</td>\
+                <td>n/a</td>\
+                <td>n/a</td>\
+            </tr>\
+        <% }; %> \
     </tbody>\
 </table>'))(data);
 }
